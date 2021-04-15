@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  details:
+    build: .
+    ports:
+      - "9081:9081"
+    environment:
+      ENABLE_EXTERNAL_BOOK_SERVICE: "true"
+    networks:
+      - details-net
+networks:
+  details-net:
+    driver: bridge

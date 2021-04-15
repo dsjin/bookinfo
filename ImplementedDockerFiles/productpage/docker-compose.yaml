@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  productpage:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      DETAILS_HOSTNAME: http://details:9081
+      RATINGS_HOSTNAME: http://ratings:9080
+      REVIEWS_HOSTNAME: http://reviews:9082
+    networks:
+      - ratings_ratings-net
+      - reviews_reviews-net
+      - details_details-net
+networks:
+  ratings_ratings-net:
+    external: true
+  reviews_reviews-net:
+    external: true
+  details_details-net:
+    external: true

@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  ratings:
+    build: .
+    ports:
+      - "9080:9080"
+    environment:
+      SERVICE_VERSION: v2
+      MONGO_DB_URL: mongodb://ratings:ratingspass@mongodb:27017/ratings
+    networks:
+      - ratings-net
+  mongodb:
+    image: bitnami/mongodb:4.4.2-debian-10-r0
+    volumes:
+      - "./databases:/docker-entrypoint-initdb.d"
+    ports:
+      - "27017:27017"
+    environment:
+      MONGODB_ROOT_PASSWORD: rootpass
+      MONGODB_USERNAME: ratings
+      MONGODB_PASSWORD: ratingspass
+      MONGODB_DATABASE: ratings
+    networks:
+      - ratings-net
+networks:
+  ratings-net:
+    driver: bridge

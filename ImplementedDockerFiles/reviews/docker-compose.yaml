@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  reviews:
+    build: .
+    ports:
+      - "9082:9082"
+    environment:
+      ENABLE_RATINGS: "true"
+      STAR_COLOR: "red"
+      RATINGS_SERVICE: http://ratings:9080
+    networks:
+      - ratings_ratings-net
+      - reviews-net
+networks:
+  ratings_ratings-net:
+    external: true
+  reviews-net:
+    driver: bridge
